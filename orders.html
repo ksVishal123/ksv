@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order History &amp; GST Invoices — ROYAL GOLD &amp; DIAMONDS</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="gold-rate-ticker">
+        <span class="ticker-label"><i class="fas fa-chart-line"></i> LIVE BULLION RATES:</span>
+        <div class="rate-item"><span class="rate-tag">22K Gold:</span><span class="rate-value live-rate-22k">₹6,850/gm</span></div>
+        <div class="rate-item"><span class="rate-tag">24K Gold:</span><span class="rate-value live-rate-24k">₹7,470/gm</span></div>
+      </div>
+      <div class="top-bar-links">
+        <a href="contact.html" class="top-bar-link"><i class="fas fa-gem"></i> VIP Concierge</a>
+        <span class="badge-hallmark" style="font-size: 0.65rem;"><i class="fas fa-check-circle"></i> 100% BIS Hallmarked</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-main">
+    <div class="container">
+      <nav class="navbar">
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="brand-logo">
+          <div class="brand-monogram"><i class="fas fa-crown"></i></div>
+          <div class="brand-text">
+            <span class="brand-title">ROYAL GOLD</span>
+            <span class="brand-subtitle">&amp; DIAMONDS</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="categories.html" class="nav-link">Collections</a></li>
+          <li class="nav-item"><a href="shop.html?category=bridal" class="nav-link">Bridal Studio</a></li>
+          <li class="nav-item"><a href="shop.html?category=rings" class="nav-link">Solitaires</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Showrooms</a></li>
+          <li class="nav-item"><a href="admin.html" class="nav-link" style="color: var(--gold-bright);"><i class="fas fa-shield-alt"></i> Admin</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <button class="action-btn" onclick="toggleSearchOverlay(true)" title="Search Royal Jewellery">
+            <i class="fas fa-search"></i>
+          </button>
+          <a href="wishlist.html" class="action-btn" title="Saved Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="badge-count wishlist-count" style="display: none;">0</span>
+          </a>
+          <a href="cart.html" class="action-btn" title="Royal Shopping Bag">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge-count cart-count" style="display: none;">0</span>
+          </a>
+          <div class="account-menu-wrapper">
+            <button class="action-btn" id="header-user-btn" title="My Account">
+              <i class="far fa-user"></i>
+            </button>
+            <div class="account-dropdown" id="account-dropdown-menu"></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content section-padding-sm">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.65rem;"></i>
+        <span>Order History</span>
+      </nav>
+
+      <!-- Customer Profile Strip -->
+      <div class="luxury-card" style="padding: 1.5rem 2rem; margin-bottom: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 1.25rem;">
+          <div style="width: 58px; height: 58px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--gold-primary), #B38F4D); display: flex; align-items: center; justify-content: center; color: #000; font-size: 1.6rem; font-weight: 800;">
+            <i class="fas fa-crown"></i>
+          </div>
+          <div>
+            <h2 id="profile-user-name" style="font-size: 1.35rem; color: #fff; margin-bottom: 2px;">Loading Patron...</h2>
+            <div id="profile-user-email" style="font-size: 0.85rem; color: var(--text-muted);">customer@royalgold.com</div>
+          </div>
+        </div>
+        <div class="d-flex align-center gap-2">
+          <span class="badge-gold" id="profile-user-role">CUSTOMER ACCOUNT</span>
+          <span class="badge-gold" id="orders-count-badge">0 Orders</span>
+        </div>
+      </div>
+
+      <!-- Orders List Section -->
+      <div style="margin-bottom: 1.5rem;">
+        <span class="section-subtitle">Purchase Ledger</span>
+        <h1 style="font-size: 1.8rem;">Your Order History &amp; Tax Invoices</h1>
+      </div>
+
+      <!-- Empty State -->
+      <div id="orders-empty-state" class="empty-state" style="display: none;">
+        <i class="fas fa-box-open empty-state-icon"></i>
+        <h2 class="empty-state-title">No Orders Placed Yet</h2>
+        <p class="empty-state-text">Your precious order records and tax invoices will appear here once you acquire your fine jewellery pieces.</p>
+        <a href="shop.html" class="btn btn-primary btn-lg"><i class="fas fa-gem"></i> Explore Royal Jewellery</a>
+      </div>
+
+      <!-- Orders List Container -->
+      <div id="orders-list-container" style="display: flex; flex-direction: column;">
+        <!-- Rendered by orders.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Printable Tax Invoice Modal -->
+  <div id="invoice-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 820px; background: #fff;">
+      <div class="modal-header" style="background: #0A0A0A; border-bottom: 1px solid var(--gold-border);">
+        <h3 class="modal-title" style="color: var(--gold-bright); font-size: 1.1rem;"><i class="fas fa-file-invoice"></i> GST-Compliant Tax Invoice</h3>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary btn-sm" onclick="printCurrentInvoice()">
+            <i class="fas fa-print"></i> Print / PDF
+          </button>
+          <button class="modal-close-btn" onclick="closeModal('invoice-modal')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0; background: #fff;" id="invoice-render-box">
+        <!-- Rendered by orders.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 ROYAL GOLD &amp; DIAMONDS. All Rights Reserved. College Project Demonstration Edition.</div>
+        <div class="d-flex gap-3">
+          <span>BIS Reg. No. HM-IND-916-ROYAL</span>
+          <span>GSTIN: 27AABCR9812K1Z9</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Search Modal & Drawers -->
+  <div id="search-overlay" class="search-modal-backdrop">
+    <div class="search-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <span class="section-subtitle">Search Catalogue</span>
+        <button class="modal-close-btn" onclick="toggleSearchOverlay(false)"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="search-input-wrap">
+        <input type="text" id="search-overlay-input" placeholder="Search by jewellery piece..." oninput="handleGlobalSearch(this.value)">
+        <i class="fas fa-search"></i>
+      </div>
+      <div class="search-results-list" id="search-results-container"></div>
+    </div>
+  </div>
+
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo"><div class="brand-monogram"><i class="fas fa-crown"></i></div><div class="brand-text"><span class="brand-title" style="font-size: 1rem;">ROYAL GOLD</span></div></div>
+      <button class="modal-close-btn" id="mobile-drawer-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="index.html" class="mobile-drawer-link"><i class="fas fa-home"></i> Home</a>
+      <a href="shop.html" class="mobile-drawer-link"><i class="fas fa-th-large"></i> Shop All Jewellery</a>
+      <a href="categories.html" class="mobile-drawer-link"><i class="fas fa-gem"></i> Curated Collections</a>
+      <a href="shop.html?category=bridal" class="mobile-drawer-link"><i class="fas fa-crown"></i> Bridal Studio</a>
+      <a href="shop.html?category=rings" class="mobile-drawer-link"><i class="fas fa-ring"></i> Solitaire Rings</a>
+      <a href="wishlist.html" class="mobile-drawer-link"><i class="fas fa-heart"></i> My Wishlist</a>
+      <a href="orders.html" class="mobile-drawer-link active"><i class="fas fa-box-open"></i> Order History</a>
+      <a href="contact.html" class="mobile-drawer-link"><i class="fas fa-map-marker-alt"></i> Showrooms &amp; Contact</a>
+      <a href="admin.html" class="mobile-drawer-link" style="color: var(--gold-bright);"><i class="fas fa-shield-alt"></i> Admin Dashboard</a>
+    </div>
+  </aside>
+
+  <nav class="mobile-bottom-bar">
+    <a href="index.html" class="mobile-bottom-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="shop.html" class="mobile-bottom-item"><i class="fas fa-th-large"></i><span>Shop</span></a>
+    <a href="wishlist.html" class="mobile-bottom-item"><i class="fas fa-heart"></i><span>Wishlist</span><span class="badge-count wishlist-count" style="display: none;">0</span></a>
+    <a href="cart.html" class="mobile-bottom-item"><i class="fas fa-shopping-bag"></i><span>Bag</span><span class="badge-count cart-count" style="display: none;">0</span></a>
+    <a href="auth.html" class="mobile-bottom-item"><i class="fas fa-user"></i><span>Account</span></a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/pages/orders.js"></script>
+</body>
+</html>

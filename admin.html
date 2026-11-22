@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Executive Dashboard — ROYAL GOLD &amp; DIAMONDS</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gold-gradient);
+    }
+
+    .kpi-title {
+      font-size: 0.8rem;
+      font-family: var(--font-royal);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .kpi-value {
+      font-family: var(--font-royal);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+    }
+
+    .admin-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin-bottom: 3rem;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .admin-table th {
+      background: var(--bg-tertiary);
+      color: var(--gold-light);
+      font-family: var(--font-royal);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gold-border);
+    }
+
+    .admin-table td {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: middle;
+    }
+
+    .admin-table tr:hover td {
+      background: rgba(212, 175, 55, 0.03);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="gold-rate-ticker">
+        <span class="ticker-label"><i class="fas fa-user-shield"></i> ROYAL ADMINISTRATIVE PRIVILEGES</span>
+        <span id="kpi-db-mode" class="badge-gold">Database Mode</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="index.html" class="top-bar-link"><i class="fas fa-external-link-alt"></i> View Customer Storefront</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-main">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-monogram"><i class="fas fa-crown"></i></div>
+          <div class="brand-text">
+            <span class="brand-title">ROYAL GOLD</span>
+            <span class="brand-subtitle">&amp; DIAMONDS &bull; ADMIN</span>
+          </div>
+        </a>
+
+        <div class="d-flex align-center gap-2">
+          <button class="btn btn-primary btn-sm" onclick="openAddProductModal()">
+            <i class="fas fa-plus"></i> Add New Jewellery
+          </button>
+          <a href="index.html" class="btn btn-outline btn-sm">
+            <i class="fas fa-home"></i> Storefront
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content section-padding-sm">
+    <div class="container">
+      
+      <!-- 1. ADMIN AUTH GATE (If logged out or customer) -->
+      <div id="admin-auth-gate" style="display: none; max-width: 600px; margin: 3rem auto; text-align: center;">
+        <div class="luxury-card" style="padding: 2.5rem;">
+          <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--gold-bright); margin-bottom: 1.25rem;"></i>
+          <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem;">Admin Access Verification Required</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">
+            This executive management console is protected by role-based authentication. Please sign in as an Administrator to proceed.
+          </p>
+
+          <div style="background: rgba(212, 175, 55, 0.08); border: 1px dashed var(--gold-border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.75rem;">
+            <div style="font-family: var(--font-royal); font-size: 0.85rem; color: var(--gold-light); font-weight: 700; margin-bottom: 0.4rem;">
+              <i class="fas fa-university"></i> College Evaluation Quick Access:
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+              Click below to instantly activate the Administrator role and test all product CRUD and order operations:
+            </p>
+            <button class="btn btn-primary btn-block" onclick="unlockAdminAccess()">
+              <i class="fas fa-key"></i> Unlock Admin Role (1-Click Evaluator Access)
+            </button>
+          </div>
+
+          <a href="auth.html?mode=login" class="btn btn-outline btn-block">
+            Sign In with Email &amp; Password
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. MAIN ADMIN DASHBOARD VIEW (Shown when admin is authorized) -->
+      <div id="admin-main-view">
+        
+        <!-- Header Strip -->
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="section-subtitle">Executive Suite</span>
+            <h1 style="font-size: 2rem;">Executive Atelier Management</h1>
+          </div>
+          <div class="d-flex gap-2">
+            <button id="btn-seed-firestore" class="btn btn-outline btn-sm" onclick="seedSampleDataToFirestore()" title="Seed 12+ Sample Jewellery Items into Cloud Firestore">
+              <i class="fas fa-cloud-upload-alt"></i> Seed Sample Products to Firestore
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="refreshDashboard()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title"><i class="fas fa-coins"></i> Total Settled Revenue</div>
+            <div class="kpi-value" id="kpi-total-revenue">₹0</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title"><i class="fas fa-shopping-bag"></i> Customer Orders</div>
+            <div class="kpi-value" id="kpi-total-orders">0</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title"><i class="fas fa-gem"></i> Catalogue Designs</div>
+            <div class="kpi-value" id="kpi-total-products">0</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title"><i class="fas fa-award"></i> Hallmark Assaying</div>
+            <div class="kpi-value" style="font-size: 1.4rem; color: #2ECC71;">100% BIS</div>
+          </div>
+        </div>
+
+        <!-- PRODUCTS MANAGEMENT SECTION -->
+        <div style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-family: var(--font-royal); font-size: 1.4rem; color: var(--gold-bright);">
+              <i class="fas fa-ring"></i> Jewellery Catalogue Management
+            </h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Add, edit, or delete fine jewellery pieces, metal purities, and stock.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <input type="text" class="form-control" placeholder="Search catalogue..." style="width: 240px; padding: 0.45rem 0.85rem; font-size: 0.85rem;" oninput="renderProductsTable(this.value)">
+            <button class="btn btn-primary btn-sm" onclick="openAddProductModal()">
+              <i class="fas fa-plus"></i> Add Piece
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Jewellery Item &amp; Purity</th>
+                <th>Category</th>
+                <th>Price (INR)</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Rendered by admin.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ORDERS MANAGEMENT SECTION -->
+        <div style="margin-bottom: 1.25rem;">
+          <h3 style="font-family: var(--font-royal); font-size: 1.4rem; color: var(--gold-bright);">
+            <i class="fas fa-truck"></i> Customer Orders &amp; Consignment Dispatch
+          </h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted);">Manage real-time order progression (Placed, Confirmed, Shipped, Delivered) and generate invoices.</p>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date Placed</th>
+                <th>Total (INR)</th>
+                <th>Fulfillment Status</th>
+                <th>Invoice</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Rendered by admin.js -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal: Add / Edit Product -->
+  <div id="product-crud-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="product-modal-title">Add New Royal Jewellery</h3>
+        <button class="modal-close-btn" onclick="closeModal('product-crud-modal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="product-crud-form">
+          
+          <div class="form-group">
+            <label class="form-label" for="crud-name">Product Title / Name <span class="required">*</span></label>
+            <input type="text" id="crud-name" class="form-control" placeholder="E.g. Maharani Navratna Bridal Haram" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="crud-category">Category <span class="required">*</span></label>
+              <select id="crud-category" class="form-control" required>
+                <option value="necklaces">Necklaces &amp; Chokers</option>
+                <option value="rings">Rings &amp; Solitaires</option>
+                <option value="earrings">Earrings &amp; Jhumkas</option>
+                <option value="bangles">Bangles &amp; Kadas</option>
+                <option value="bridal">Bridal Studio</option>
+                <option value="mangalsutras">Mangalsutras</option>
+                <option value="mens">Men's Collection</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-metal">Metal &amp; Color <span class="required">*</span></label>
+              <input type="text" id="crud-metal" class="form-control" placeholder="E.g. 22K Yellow Gold or 18K White Gold" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-purity">Purity Grade <span class="required">*</span></label>
+              <input type="text" id="crud-purity" class="form-control" placeholder="E.g. 22K or 18K or Pt 950" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-hallmark">Hallmark / Certification <span class="required">*</span></label>
+              <input type="text" id="crud-hallmark" class="form-control" value="BIS 916 Hallmarked" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-gross-weight">Gross Weight (grams)</label>
+              <input type="number" step="0.01" id="crud-gross-weight" class="form-control" placeholder="E.g. 48.50">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-net-weight">Net Gold Weight (grams)</label>
+              <input type="number" step="0.01" id="crud-net-weight" class="form-control" placeholder="E.g. 46.20">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-price">Price (INR ₹) <span class="required">*</span></label>
+              <input type="number" id="crud-price" class="form-control" placeholder="E.g. 285000" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-mrp">MRP / Valuation (INR ₹)</label>
+              <input type="number" id="crud-mrp" class="form-control" placeholder="E.g. 310000">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="crud-stock">Stock Quantity <span class="required">*</span></label>
+              <input type="number" id="crud-stock" class="form-control" value="5" min="0" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="crud-description">Artisan Description &amp; Specifications</label>
+            <textarea id="crud-description" class="form-control" rows="3" placeholder="Artisan details, diamond cut clarity, gemstone origins..."></textarea>
+          </div>
+
+          <!-- Product Image Upload / Cloud Storage -->
+          <div class="form-group" style="background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px dashed var(--gold-border);">
+            <label class="form-label"><i class="fas fa-camera"></i> Product Photography (Firebase Storage)</label>
+            <input type="file" id="crud-image-file" class="form-control" accept="image/jpeg,image/png,image/webp">
+            <div id="image-upload-status" style="font-size: 0.78rem; margin-top: 0.4rem;"></div>
+            <img id="image-upload-preview" src="" alt="Preview" style="display: none; width: 100px; height: 100px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--gold-border); margin-top: 0.75rem;">
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('product-crud-modal')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Product to Catalogue</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable Invoice Modal (Reused from orders.js) -->
+  <div id="invoice-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 820px; background: #fff;">
+      <div class="modal-header" style="background: #0A0A0A; border-bottom: 1px solid var(--gold-border);">
+        <h3 class="modal-title" style="color: var(--gold-bright); font-size: 1.1rem;"><i class="fas fa-file-invoice"></i> Official GST Tax Invoice</h3>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary btn-sm" onclick="window.printCurrentInvoice()">
+            <i class="fas fa-print"></i> Print
+          </button>
+          <button class="modal-close-btn" onclick="closeModal('invoice-modal')"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0; background: #fff;" id="invoice-render-box"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 ROYAL GOLD &amp; DIAMONDS. Administrative Suite. College Project Demonstration Edition.</div>
+        <div class="d-flex gap-3">
+          <span>BIS Reg. No. HM-IND-916-ROYAL</span>
+          <span>GSTIN: 27AABCR9812K1Z9</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/pages/orders.js"></script>
+  <script src="js/pages/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In &amp; Royal Privileges — ROYAL GOLD &amp; DIAMONDS</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .auth-wrapper {
+      max-width: 520px;
+      margin: 2rem auto 4rem;
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--gold-border);
+      margin-bottom: 2rem;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      font-family: var(--font-royal);
+      font-size: 1rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-fast);
+      background: none;
+      border: none;
+    }
+
+    .auth-tab-btn.active {
+      color: var(--gold-bright);
+      border-bottom: 2px solid var(--gold-primary);
+      font-weight: 700;
+    }
+
+    .demo-credentials-card {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px dashed var(--gold-primary);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .password-input-wrap {
+      position: relative;
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="gold-rate-ticker">
+        <span class="ticker-label"><i class="fas fa-chart-line"></i> LIVE BULLION RATES:</span>
+        <div class="rate-item"><span class="rate-tag">22K Gold:</span><span class="rate-value live-rate-22k">₹6,850/gm</span></div>
+      </div>
+      <div class="top-bar-links">
+        <span class="badge-hallmark" style="font-size: 0.65rem;"><i class="fas fa-check-circle"></i> 100% BIS Hallmarked</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-main">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-monogram"><i class="fas fa-crown"></i></div>
+          <div class="brand-text">
+            <span class="brand-title">ROYAL GOLD</span>
+            <span class="brand-subtitle">&amp; DIAMONDS</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop All</a></li>
+          <li class="nav-item"><a href="categories.html" class="nav-link">Collections</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Showrooms</a></li>
+          <li class="nav-item"><a href="admin.html" class="nav-link" style="color: var(--gold-bright);"><i class="fas fa-shield-alt"></i> Admin</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <a href="wishlist.html" class="action-btn" title="Saved Wishlist">
+            <i class="far fa-heart"></i>
+          </a>
+          <a href="cart.html" class="action-btn" title="Royal Shopping Bag">
+            <i class="fas fa-shopping-bag"></i>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content section-padding-sm">
+    <div class="container">
+      
+      <div class="auth-wrapper luxury-card" style="padding: 2.25rem;">
+        
+        <!-- Auth Tabs: Login vs Register -->
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+          <button class="auth-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </div>
+
+        <!-- 1-Click College Demo Credentials helper -->
+        <div class="demo-credentials-card">
+          <div style="font-family: var(--font-royal); font-size: 0.82rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 0.35rem;">
+            <i class="fas fa-university"></i> College Project Evaluator Quick-Fill:
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.6rem;">
+            Pre-configured test accounts for instant evaluation:
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-sm btn-outline" style="flex: 1;" onclick="fillDemoCredentials('admin')">
+              <i class="fas fa-crown"></i> Admin: admin@royalgold.com
+            </button>
+            <button class="btn btn-sm btn-secondary" style="flex: 1;" onclick="fillDemoCredentials('customer')">
+              <i class="fas fa-user"></i> Customer Demo
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. LOGIN FORM -->
+        <div id="auth-login-box">
+          <form id="login-form">
+            <div class="form-group">
+              <label class="form-label" for="login-email">Registered Email Address <span class="required">*</span></label>
+              <input type="email" id="login-email" class="form-control" placeholder="admin@royalgold.com or user@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <label class="form-label" for="login-password">Password <span class="required">*</span></label>
+                <a href="#" style="font-size: 0.75rem; color: var(--gold-light);" onclick="window.showToast('Reset Link', 'Password reset instructions dispatched to your email.', 'info'); return false;">Forgot?</a>
+              </div>
+              <div class="password-input-wrap">
+                <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('login-password', this)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+              Sign In to Royal Portal <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- 2. REGISTER FORM -->
+        <div id="auth-register-box" style="display: none;">
+          <form id="register-form">
+            <div class="form-group">
+              <label class="form-label" for="register-name">Full Legal Name <span class="required">*</span></label>
+              <input type="text" id="register-name" class="form-control" placeholder="E.g. Maharani Gayatri Devi" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="register-email">Email Address <span class="required">*</span></label>
+              <input type="email" id="register-email" class="form-control" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="register-phone">Mobile Phone (For Armoured Delivery OTP)</label>
+              <input type="tel" id="register-phone" class="form-control" placeholder="+91 98765 43210">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="register-password">Create Security Password <span class="required">*</span></label>
+              <div class="password-input-wrap">
+                <input type="password" id="register-password" class="form-control" placeholder="Minimum 6 characters" required>
+                <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('register-password', this)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">Must contain at least 6 characters.</div>
+            </div>
+
+            <button type="submit" id="btn-register-submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+              Create Royal Account <i class="fas fa-crown" style="margin-left: 6px;"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 ROYAL GOLD &amp; DIAMONDS. All Rights Reserved. College Project Demonstration Edition.</div>
+        <div class="d-flex gap-3">
+          <span>BIS Reg. No. HM-IND-916-ROYAL</span>
+          <span>GSTIN: 27AABCR9812K1Z9</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/pages/auth.js"></script>
+</body>
+</html>

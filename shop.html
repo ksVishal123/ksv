@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Fine Jewellery Catalogue — ROYAL GOLD & DIAMONDS</title>
+  
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .shop-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .filter-sidebar {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      position: sticky;
+      top: 90px;
+    }
+
+    .filter-group {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .filter-group:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .filter-title {
+      font-family: var(--font-royal);
+      font-size: 0.95rem;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-category-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-radius: var(--radius-sm);
+      color: var(--ivory-muted);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all var(--transition-fast);
+      margin-bottom: 0.35rem;
+    }
+
+    .filter-category-btn:hover,
+    .filter-category-btn.active {
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .count-tag {
+      font-size: 0.75rem;
+      background: var(--bg-tertiary);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+    }
+
+    .filter-category-btn.active .count-tag {
+      background: var(--gold-primary);
+      color: #000;
+      font-weight: 700;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .radio-option input[type="radio"],
+    .checkbox-option input[type="checkbox"] {
+      accent-color: var(--gold-primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .range-slider-wrap input[type="range"] {
+      width: 100%;
+      accent-color: var(--gold-primary);
+      height: 6px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      outline: none;
+      margin: 1rem 0;
+      cursor: pointer;
+    }
+
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .shop-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--gold-light);
+    }
+
+    .mobile-filter-btn {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. TOP BAR WITH LIVE GOLD RATE TICKER -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="gold-rate-ticker">
+        <span class="ticker-label"><i class="fas fa-chart-line"></i> LIVE BULLION RATES:</span>
+        <div class="rate-item">
+          <span class="rate-tag">22K Gold:</span>
+          <span class="rate-value live-rate-22k">₹6,850/gm</span>
+          <span class="rate-up"><i class="fas fa-caret-up"></i></span>
+        </div>
+        <div class="rate-item">
+          <span class="rate-tag">24K Gold:</span>
+          <span class="rate-value live-rate-24k">₹7,470/gm</span>
+          <span class="rate-up"><i class="fas fa-caret-up"></i></span>
+        </div>
+        <div class="rate-item">
+          <span class="rate-tag">Silver:</span>
+          <span class="rate-value live-rate-silver">₹890/10gm</span>
+        </div>
+      </div>
+
+      <div class="top-bar-links">
+        <a href="contact.html" class="top-bar-link"><i class="fas fa-gem"></i> VIP Bridal Appointment</a>
+        <a href="tel:+919900011223" class="top-bar-link"><i class="fas fa-phone-alt"></i> +91 99000 11223</a>
+        <span class="badge-hallmark" style="font-size: 0.65rem;"><i class="fas fa-check-circle"></i> 100% BIS Hallmarked</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MAIN HEADER & NAVBAR -->
+  <header class="header-main">
+    <div class="container">
+      <nav class="navbar">
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="brand-logo">
+          <div class="brand-monogram">
+            <i class="fas fa-crown"></i>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">ROYAL GOLD</span>
+            <span class="brand-subtitle">&amp; DIAMONDS</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link active">Shop All</a></li>
+          <li class="nav-item"><a href="categories.html" class="nav-link">Collections</a></li>
+          <li class="nav-item"><a href="shop.html?category=bridal" class="nav-link">Bridal Studio</a></li>
+          <li class="nav-item"><a href="shop.html?category=rings" class="nav-link">Solitaires</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Showrooms</a></li>
+          <li class="nav-item"><a href="admin.html" class="nav-link" style="color: var(--gold-bright);"><i class="fas fa-shield-alt"></i> Admin</a></li>
+        </ul>
+
+        <div class="header-actions">
+          <button class="action-btn" onclick="toggleSearchOverlay(true)" title="Search Royal Jewellery">
+            <i class="fas fa-search"></i>
+          </button>
+
+          <a href="wishlist.html" class="action-btn" title="Saved Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="badge-count wishlist-count" style="display: none;">0</span>
+          </a>
+
+          <a href="cart.html" class="action-btn" title="Royal Shopping Bag">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge-count cart-count" style="display: none;">0</span>
+          </a>
+
+          <div class="account-menu-wrapper">
+            <button class="action-btn" id="header-user-btn" title="My Account">
+              <i class="far fa-user"></i>
+            </button>
+            <div class="account-dropdown" id="account-dropdown-menu"></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content section-padding-sm">
+    <div class="container">
+      
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.65rem;"></i>
+        <span>Shop All Jewellery</span>
+      </nav>
+
+      <!-- Page Banner -->
+      <div style="margin-bottom: 2.5rem; text-align: center;">
+        <span class="section-subtitle">Royal Atelier Catalogue</span>
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Precious Gold &amp; Solitaire Creations</h1>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Every jewel is 100% BIS Hallmarked or IGI/GIA Certified, with complete transparency in net weight and making charges.</p>
+      </div>
+
+      <!-- Shop Layout: Sidebar + Product Grid -->
+      <div class="shop-layout">
+        
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar" id="shop-sidebar">
+          <div class="filter-drawer-header d-flex justify-between align-center" style="margin-bottom: 1rem;">
+            <h3 style="font-size: 1.1rem; color: var(--gold-bright);"><i class="fas fa-sliders-h"></i> Refine Search</h3>
+            <button class="modal-close-btn" id="sidebar-close-btn" style="display: none;"><i class="fas fa-times"></i></button>
+          </div>
+
+          <!-- Search Filter -->
+          <div class="filter-group">
+            <label class="filter-title" for="shop-search-input">Keyword Search</label>
+            <div style="position: relative;">
+              <input type="text" id="shop-search-input" class="form-control" placeholder="E.g. Choker, Solitaire, Kada..." style="padding-right: 2rem;">
+              <i class="fas fa-search" style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--gold-primary); font-size: 0.85rem;"></i>
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <div class="filter-title">Collections &amp; Categories</div>
+            <ul id="sidebar-categories-list">
+              <!-- Populated by shop.js -->
+            </ul>
+          </div>
+
+          <!-- Metal & Purity Filter -->
+          <div class="filter-group">
+            <div class="filter-title">Metal &amp; Purity</div>
+            <label class="radio-option">
+              <input type="radio" name="metal-filter" value="all" checked>
+              <span>All Precious Metals</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="metal-filter" value="22K">
+              <span>22K Yellow / Antique Gold</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="metal-filter" value="18K White">
+              <span>18K White Gold Solitaire</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="metal-filter" value="18K Rose">
+              <span>18K Rose Gold</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="metal-filter" value="Platinum">
+              <span>Platinum 950 Pure</span>
+            </label>
+          </div>
+
+          <!-- Price Range Slider Filter -->
+          <div class="filter-group">
+            <div class="filter-title">
+              <span>Price Range</span>
+              <span id="price-slider-value" style="color: var(--gold-bright); font-weight: 700;">₹6,00,000</span>
+            </div>
+            <div class="range-slider-wrap">
+              <input type="range" id="price-range-slider" min="10000" max="600000" step="10000" value="600000">
+              <div class="range-labels">
+                <span>₹10,000</span>
+                <span>₹6,00,000+</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- In Stock Only Filter -->
+          <div class="filter-group">
+            <label class="checkbox-option">
+              <input type="checkbox" id="in-stock-only-check">
+              <span>In Stock &amp; Ready to Ship</span>
+            </label>
+          </div>
+
+          <!-- Reset Filter Button -->
+          <button class="btn btn-outline btn-block btn-sm" onclick="resetAllFilters()">
+            <i class="fas fa-undo"></i> Reset All Filters
+          </button>
+        </aside>
+
+        <!-- Main Product Grid & Controls -->
+        <section>
+          
+          <!-- Toolbar -->
+          <div class="shop-toolbar">
+            <div class="d-flex align-center gap-2">
+              <button class="btn btn-outline btn-sm mobile-filter-btn" id="mobile-filter-toggle-btn">
+                <i class="fas fa-sliders-h"></i> Filters
+              </button>
+              <span id="shop-products-count" style="font-size: 0.9rem; color: var(--ivory-muted); font-family: var(--font-royal);">
+                Loading precious catalogue...
+              </span>
+            </div>
+
+            <div class="d-flex align-center gap-2">
+              <label for="shop-sort-select" style="font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;">Sort By:</label>
+              <select id="shop-sort-select" class="form-control" style="width: auto; padding: 0.45rem 2rem 0.45rem 0.85rem; font-size: 0.85rem;">
+                <option value="popular">Popular &amp; Bestsellers</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
+                <option value="newest">Newest Arrivals</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Active Filter Chips -->
+          <div id="active-filter-chips"></div>
+
+          <!-- Dynamic Products Grid -->
+          <div class="product-grid" id="shop-products-grid">
+            <!-- Populated by shop.js -->
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 ROYAL GOLD &amp; DIAMONDS. All Rights Reserved. College Project Demonstration Edition.</div>
+        <div class="d-flex gap-3">
+          <span>BIS Reg. No. HM-IND-916-ROYAL</span>
+          <span>GSTIN: 27AABCR9812K1Z9</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SEARCH OVERLAY & MOBILE DRAWERS -->
+  <div id="search-overlay" class="search-modal-backdrop">
+    <div class="search-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <span class="section-subtitle">Search Catalogue</span>
+        <button class="modal-close-btn" onclick="toggleSearchOverlay(false)"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="search-input-wrap">
+        <input type="text" id="search-overlay-input" placeholder="Search by jewellery piece, solitaire, karat, or style..." oninput="handleGlobalSearch(this.value)">
+        <i class="fas fa-search"></i>
+      </div>
+      <div class="search-results-list" id="search-results-container"></div>
+    </div>
+  </div>
+
+  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop"></div>
+  <aside id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo">
+        <div class="brand-monogram"><i class="fas fa-crown"></i></div>
+        <div class="brand-text"><span class="brand-title" style="font-size: 1rem;">ROYAL GOLD</span></div>
+      </div>
+      <button class="modal-close-btn" id="mobile-drawer-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="index.html" class="mobile-drawer-link"><i class="fas fa-home"></i> Home</a>
+      <a href="shop.html" class="mobile-drawer-link active"><i class="fas fa-th-large"></i> Shop All Jewellery</a>
+      <a href="categories.html" class="mobile-drawer-link"><i class="fas fa-gem"></i> Curated Collections</a>
+      <a href="shop.html?category=bridal" class="mobile-drawer-link"><i class="fas fa-crown"></i> Bridal Studio</a>
+      <a href="shop.html?category=rings" class="mobile-drawer-link"><i class="fas fa-ring"></i> Solitaire Rings</a>
+      <a href="wishlist.html" class="mobile-drawer-link"><i class="fas fa-heart"></i> My Wishlist</a>
+      <a href="orders.html" class="mobile-drawer-link"><i class="fas fa-box-open"></i> Order History</a>
+      <a href="contact.html" class="mobile-drawer-link"><i class="fas fa-map-marker-alt"></i> Showrooms &amp; Contact</a>
+      <a href="admin.html" class="mobile-drawer-link" style="color: var(--gold-bright);"><i class="fas fa-shield-alt"></i> Admin Dashboard</a>
+    </div>
+  </aside>
+
+  <nav class="mobile-bottom-bar">
+    <a href="index.html" class="mobile-bottom-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="shop.html" class="mobile-bottom-item active"><i class="fas fa-th-large"></i><span>Shop</span></a>
+    <a href="wishlist.html" class="mobile-bottom-item"><i class="fas fa-heart"></i><span>Wishlist</span><span class="badge-count wishlist-count" style="display: none;">0</span></a>
+    <a href="cart.html" class="mobile-bottom-item"><i class="fas fa-shopping-bag"></i><span>Bag</span><span class="badge-count cart-count" style="display: none;">0</span></a>
+    <a href="auth.html" class="mobile-bottom-item"><i class="fas fa-user"></i><span>Account</span></a>
+  </nav>
+
+  <!-- Firebase Compat CDN Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <!-- Core Scripts -->
+  <script src="js/sample-data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+
+  <!-- Page Script -->
+  <script src="js/pages/shop.js"></script>
+</body>
+</html>

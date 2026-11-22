@@ -1,0 +1,12 @@
+# System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node & package artifacts
+node_modules/
+package-lock.json
+
+# Temporary logs
+*.log

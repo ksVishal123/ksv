@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insured Checkout (Test Mode) — ROYAL GOLD &amp; DIAMONDS</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .checkout-step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.75rem;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: var(--gold-gradient);
+      color: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-family: var(--font-royal);
+      font-size: 0.85rem;
+    }
+
+    .step-title {
+      font-family: var(--font-royal);
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+
+    .payment-option-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all var(--transition-fast);
+    }
+
+    .payment-option-card:hover,
+    .payment-option-card.active {
+      border-color: var(--gold-primary);
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .test-badge {
+      background: rgba(243, 156, 18, 0.2);
+      color: #f39c12;
+      border: 1px solid rgba(243, 156, 18, 0.5);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="gold-rate-ticker">
+        <span class="ticker-label"><i class="fas fa-lock"></i> 256-BIT SSL ENCRYPTED CHECKOUT</span>
+      </div>
+      <div class="top-bar-links">
+        <span class="badge-gold"><i class="fas fa-flask"></i> College Demo Sandbox Mode</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header-main">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-monogram"><i class="fas fa-crown"></i></div>
+          <div class="brand-text">
+            <span class="brand-title">ROYAL GOLD</span>
+            <span class="brand-subtitle">&amp; DIAMONDS</span>
+          </div>
+        </a>
+
+        <div style="font-family: var(--font-royal); color: var(--gold-light); font-size: 0.9rem;">
+          <i class="fas fa-shield-alt"></i> Insured White-Glove Dispatch
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content section-padding-sm">
+    <div class="container">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.65rem;"></i>
+        <a href="cart.html">Shopping Bag</a>
+        <i class="fas fa-chevron-right" style="font-size: 0.65rem;"></i>
+        <span>Secure Checkout</span>
+      </nav>
+
+      <!-- Sandbox Notice Banner -->
+      <div style="background: rgba(243, 156, 18, 0.12); border: 1px solid rgba(243, 156, 18, 0.4); border-radius: var(--radius-sm); padding: 1rem 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+        <i class="fas fa-info-circle" style="color: #f39c12; font-size: 1.5rem;"></i>
+        <div style="font-size: 0.88rem; color: #f5f5f5;">
+          <strong>Educational Project Notice:</strong> This checkout runs in a <strong>clearly labelled test/simulation mode</strong> for academic demonstration. No real currency is charged. You can use the simulated test card credentials or mock UPI to place authentic test orders.
+        </div>
+      </div>
+
+      <div class="checkout-layout">
+        
+        <!-- Form Column -->
+        <div>
+          <form id="checkout-shipping-form">
+            
+            <!-- Step 1: Shipping Details -->
+            <div class="checkout-step-card">
+              <div class="step-header">
+                <div class="step-number">1</div>
+                <h2 class="step-title">Insured Shipping &amp; Recipient Information</h2>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" for="shipping-name">Full Legal Name (For ID Verification) <span class="required">*</span></label>
+                  <input type="text" id="shipping-name" class="form-control" placeholder="E.g. Maharani Gayatri Devi" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="shipping-email">Email Address (For Tracking &amp; Invoice) <span class="required">*</span></label>
+                  <input type="email" id="shipping-email" class="form-control" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="shipping-phone">Mobile Phone (For Armoured Delivery OTP) <span class="required">*</span></label>
+                  <input type="tel" id="shipping-phone" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" for="shipping-address">Delivery Address (Apartment, Street, Landmark) <span class="required">*</span></label>
+                  <textarea id="shipping-address" class="form-control" rows="2" placeholder="House/Flat No., Tower, Street, Landmark..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="shipping-city">City <span class="required">*</span></label>
+                  <input type="text" id="shipping-city" class="form-control" placeholder="E.g. Mumbai, Bengaluru, Delhi" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="shipping-state">State <span class="required">*</span></label>
+                  <input type="text" id="shipping-state" class="form-control" placeholder="E.g. Maharashtra, Karnataka" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="shipping-pincode">PIN Code <span class="required">*</span></label>
+                  <input type="text" id="shipping-pincode" class="form-control" placeholder="6-digit Indian PIN (e.g. 400050)" maxlength="6" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Country</label>
+                  <input type="text" class="form-control" value="India (Insured Domestic Shipping)" readonly style="opacity: 0.7;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Delivery Method -->
+            <div class="checkout-step-card">
+              <div class="step-header">
+                <div class="step-number">2</div>
+                <h2 class="step-title">Armoured Transit Selection</h2>
+              </div>
+              <div style="background: var(--bg-secondary); border: 1px solid var(--gold-primary); border-radius: var(--radius-sm); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <i class="fas fa-truck-moving" style="color: var(--gold-bright); font-size: 1.5rem;"></i>
+                  <div>
+                    <div style="font-weight: 700; color: #fff;">Priority Insured White-Glove Courier</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Tamper-evident luxury packaging • Hand delivered with OTP verification</div>
+                  </div>
+                </div>
+                <span class="badge-certified" style="font-size: 0.8rem;">COMPLIMENTARY</span>
+              </div>
+            </div>
+
+            <!-- Step 3: Payment Gateway (Test Mode) -->
+            <div class="checkout-step-card">
+              <div class="step-header">
+                <div class="step-number">3</div>
+                <div>
+                  <h2 class="step-title">Payment Method</h2>
+                  <span class="test-badge"><i class="fas fa-vial"></i> Simulated Gateway (Test Mode Only)</span>
+                </div>
+              </div>
+
+              <!-- Option A: Razorpay / Stripe Simulator -->
+              <label class="payment-option-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment-method-radio" value="razorpay_test" checked>
+                  <div>
+                    <div style="font-weight: 600; color: #fff;">Razorpay / Stripe Test Simulator</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Instant demo gateway with simulated bank authorization</div>
+                  </div>
+                </div>
+                <i class="fas fa-credit-card" style="color: var(--gold-primary);"></i>
+              </label>
+
+              <!-- Option B: Test Credit/Debit Card -->
+              <label class="payment-option-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment-method-radio" value="card_test">
+                  <div>
+                    <div style="font-weight: 600; color: #fff;">Credit / Debit Card (Demo Sandbox)</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Visa, MasterCard, RuPay simulated card form</div>
+                  </div>
+                </div>
+                <i class="fab fa-cc-visa" style="color: var(--gold-light);"></i>
+              </label>
+
+              <!-- Card form box -->
+              <div id="test-card-details-box" style="display: none; background: #111; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px dashed var(--gold-border); margin-bottom: 1rem;">
+                <div style="font-size: 0.75rem; color: var(--gold-light); margin-bottom: 0.75rem;">
+                  <i class="fas fa-info-circle"></i> Use demo test card numbers below:
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Card Number</label>
+                  <input type="text" class="form-control" value="4242 •••• •••• 4242" readonly style="font-family: monospace;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                  <div class="form-group">
+                    <label class="form-label">Expiry (MM/YY)</label>
+                    <input type="text" class="form-control" value="12/28" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">CVV</label>
+                    <input type="text" class="form-control" value="888" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option C: UPI Simulator -->
+              <label class="payment-option-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment-method-radio" value="upi_test">
+                  <div>
+                    <div style="font-weight: 600; color: #fff;">UPI / QR Simulator (GPay, PhonePe, Paytm)</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Simulated instant VPA approval</div>
+                  </div>
+                </div>
+                <i class="fas fa-qrcode" style="color: var(--gold-bright);"></i>
+              </label>
+
+              <!-- UPI form box -->
+              <div id="test-upi-details-box" style="display: none; background: #111; padding: 1rem; border-radius: var(--radius-sm); border: 1px dashed var(--gold-border); margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Demo UPI ID (VPA)</label>
+                  <input type="text" class="form-control" value="royalgold@okhdfcbank" readonly>
+                </div>
+              </div>
+
+              <!-- Option D: Showroom / COD -->
+              <label class="payment-option-card">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment-method-radio" value="showroom_cod">
+                  <div>
+                    <div style="font-weight: 600; color: #fff;">Pay at Showroom Concierge / High-Value COD</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Verified identity and biometric confirmation upon delivery</div>
+                  </div>
+                </div>
+                <i class="fas fa-hand-holding-usd" style="color: #2ECC71;"></i>
+              </label>
+
+              <!-- Submit button -->
+              <div style="margin-top: 1.75rem;">
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                  Authorize &amp; Place Order (Test Mode) <i class="fas fa-arrow-right" style="margin-left: 6px;"></i>
+                </button>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Sidebar Summary Column -->
+        <div>
+          <div class="cart-summary-card">
+            <h3 style="font-family: var(--font-royal); font-size: 1.2rem; color: var(--gold-bright); margin-bottom: 1.25rem; border-bottom: 1px solid var(--gold-border); padding-bottom: 0.75rem;">
+              Order Valuation Summary
+            </h3>
+
+            <!-- Items list preview -->
+            <div id="checkout-items-list" style="max-height: 280px; overflow-y: auto; margin-bottom: 1.25rem;">
+              <!-- Rendered by checkout.js -->
+            </div>
+
+            <div class="summary-line">
+              <span>Bullion Subtotal:</span>
+              <span id="checkout-subtotal" style="color: #fff; font-weight: 600;">₹0</span>
+            </div>
+
+            <div class="summary-line" id="checkout-discount-row" style="display: none; color: #2ECC71;">
+              <span>Privilege Discount:</span>
+              <span id="checkout-discount" style="font-weight: 600;">-₹0</span>
+            </div>
+
+            <div class="summary-line">
+              <span>Applicable GST (3%):</span>
+              <span id="checkout-gst" style="color: #fff; font-weight: 600;">₹0</span>
+            </div>
+
+            <div class="summary-line">
+              <span>Armoured Delivery:</span>
+              <span style="color: #2ECC71; font-weight: 600;">FREE</span>
+            </div>
+
+            <div class="summary-line total">
+              <span>Grand Total:</span>
+              <span id="checkout-grand-total">₹0</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); font-size: 0.78rem; color: var(--text-muted);">
+              <div><i class="fas fa-certificate" style="color: var(--gold-primary);"></i> BIS 916 Assayed Purity Stamped</div>
+              <div style="margin-top: 0.35rem;"><i class="fas fa-file-invoice" style="color: var(--gold-primary);"></i> GST-Compliant Tax Invoice Included</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal 1: Test Payment Sandbox Simulator -->
+  <div id="test-payment-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title"><i class="fas fa-lock"></i> Simulated Gateway</h3>
+          <span class="test-badge" style="margin-top: 4px; display: inline-block;">Sandbox Test Mode</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('test-payment-modal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Total Transaction Amount</div>
+        <div id="modal-payable-amount" style="font-family: var(--font-royal); font-size: 2rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 1.5rem;">₹0</div>
+
+        <div style="background: var(--bg-tertiary); border: 1px solid var(--gold-border); border-radius: var(--radius-sm); padding: 1.25rem; text-align: left; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.82rem; color: var(--gold-light); font-weight: 700; margin-bottom: 0.5rem;">Simulated Bank 3D-Secure OTP</div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Enter mock OTP below (or leave as test code <strong>999999</strong>) to authorize simulation:</p>
+          <input type="text" id="demo-mock-otp" class="form-control" value="999999" maxlength="6" style="text-align: center; font-size: 1.3rem; letter-spacing: 0.3em; font-weight: 700; background: #141414;">
+        </div>
+
+        <div id="payment-processing-status" style="display: none; margin-bottom: 1rem; font-size: 0.85rem;"></div>
+
+        <button id="btn-confirm-demo-payment" class="btn btn-primary btn-block btn-lg" onclick="processDemoPayment()">
+          <i class="fas fa-check-circle"></i> Confirm Simulated Payment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Order Success & Confirmation -->
+  <div id="order-success-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 580px; text-align: center;">
+      <div class="modal-body" style="padding: 2.5rem 2rem;">
+        <div style="width: 70px; height: 70px; border-radius: var(--radius-full); background: rgba(46, 204, 113, 0.15); border: 2px solid #2ECC71; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #2ECC71; font-size: 2rem;">
+          <i class="fas fa-crown"></i>
+        </div>
+
+        <span class="badge-gold" style="margin-bottom: 0.75rem;">Order Successfully Placed</span>
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff;">Your Royal Order is Confirmed</h2>
+        <p style="color: var(--ivory-muted); font-size: 0.9rem; margin-bottom: 1.75rem;">An official confirmation and GST invoice receipt have been dispatched to <strong id="success-customer-email" style="color: var(--gold-light);"></strong>.</p>
+
+        <div style="background: var(--bg-tertiary); border: 1px solid var(--gold-border); border-radius: var(--radius-sm); padding: 1.25rem; text-align: left; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.88rem;">
+            <span style="color: var(--text-muted);">Royal Order ID:</span>
+            <span id="success-order-id" style="font-family: var(--font-royal); font-weight: 700; color: var(--gold-bright);"></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.88rem;">
+            <span style="color: var(--text-muted);">Amount Paid (Test Mode):</span>
+            <span id="success-order-amount" style="font-weight: 700; color: #fff;"></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+            <span style="color: var(--text-muted);">Armoured Transit Consignment:</span>
+            <span id="success-tracking-id" style="font-family: monospace; color: var(--gold-light);"></span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+          <a href="orders.html" class="btn btn-primary" style="flex: 1;">
+            <i class="fas fa-file-invoice"></i> View Orders &amp; Invoice
+          </a>
+          <a href="shop.html" class="btn btn-outline" style="flex: 1;">
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 ROYAL GOLD &amp; DIAMONDS. All Rights Reserved. College Project Demonstration Edition.</div>
+        <div class="d-flex gap-3">
+          <span>BIS Reg. No. HM-IND-916-ROYAL</span>
+          <span>GSTIN: 27AABCR9812K1Z9</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/pages/checkout.js"></script>
+</body>
+</html>
